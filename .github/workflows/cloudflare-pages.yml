@@ -1,73 +1,72 @@
-name: Build and deploy to Cloudflare Pages
+name: Deploy Austingreatleo Group to Cloudflare Pages
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: cloudflare-pages-production
+  group: austingreatleo-pages-production
   cancel-in-progress: true
 
 jobs:
   deploy:
+    name: Build and publish website
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - name: Check out source
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: Configure Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
 
-      - name: Install dependencies
-        run: npm install
+      - name: Install packages
+        run: npm install --no-audit --no-fund
 
-      - name: Build static Next.js site
+      - name: Build website
         run: npm run build
 
-      - name: Ensure Cloudflare Pages project exists
+      - name: Validate static output
+        run: |
+          test -d out
+          test -f out/index.html
+          echo "Static export verified."
+
+      - name: Create Cloudflare Pages project if needed
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           set -euo pipefail
-          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
-            echo "Missing GitHub Actions secrets: CLOUDFLARE_API_TOKEN and/or CLOUDFLARE_ACCOUNT_ID."
+          test -n "$CLOUDFLARE_API_TOKEN" || (echo "CLOUDFLARE_API_TOKEN secret is empty or unavailable"; exit 1)
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || (echo "CLOUDFLARE_ACCOUNT_ID secret is empty or unavailable"; exit 1)
+          BASE="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects"
+          CODE=$(curl -sS -o /tmp/cf-project.json -w "%{http_code}" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$BASE/austingreatleo-group")
+          if [ "$CODE" = "404" ]; then
+            CODE=$(curl -sS -o /tmp/cf-create.json -w "%{http_code}" -X POST "$BASE" -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" --data '{"name":"austingreatleo-group","production_branch":"main"}')
+          fi
+          if [ "$CODE" -lt 200 ] || [ "$CODE" -ge 300 ]; then
+            echo "Cloudflare Pages API failed with HTTP $CODE"
+            cat /tmp/cf-project.json 2>/dev/null || true
+            cat /tmp/cf-create.json 2>/dev/null || true
             exit 1
           fi
 
-          API="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/austingreatleo-group"
-          STATUS=$(curl -sS -o /tmp/pages-project.json -w "%{http_code}" \
-            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$API")
-
-          if [ "$STATUS" = "404" ]; then
-            CREATE_STATUS=$(curl -sS -o /tmp/pages-create.json -w "%{http_code}" \
-              -X POST "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects" \
-              -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-              -H "Content-Type: application/json" \
-              --data '{"name":"austingreatleo-group","production_branch":"main"}')
-            if [ "$CREATE_STATUS" -lt 200 ] || [ "$CREATE_STATUS" -ge 300 ]; then
-              echo "Cloudflare Pages project creation failed (HTTP $CREATE_STATUS)."
-              cat /tmp/pages-create.json
-              exit 1
-            fi
-          elif [ "$STATUS" -lt 200 ] || [ "$STATUS" -ge 300 ]; then
-            echo "Could not verify Cloudflare Pages project (HTTP $STATUS)."
-            cat /tmp/pages-project.json
-            exit 1
-          fi
-
-      - name: Deploy to Cloudflare Pages
+      - name: Publish to Cloudflare Pages
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: npx --yes wrangler@4 pages deploy out --project-name=austingreatleo-group --branch=main
 
-      - name: Report deployment URL
-        run: echo "Cloudflare Pages project: https://austingreatleo-group.pages.dev"
+      - name: Confirm deployment endpoint
+        run: |
+          curl --fail --silent --show-error --retry 8 --retry-delay 5 https://austingreatleo-group.pages.dev/ -o /tmp/deployed-homepage.html
+          grep -qi "Austingreatleo" /tmp/deployed-homepage.html
+          echo "Deployment is live: https://austingreatleo-group.pages.dev"
