@@ -41,9 +41,9 @@ export default function Home() {
   return (
     <main>
       <header className="site-header">
-        <a className="brand" href="#top" aria-label="Austingreatleo Group home">
+        <a className="brand" href="#top" aria-label="Austinegreatleo Group of Technologies home">
           <span className="brand-symbol">AG</span>
-          <span className="brand-name">AUSTINGREATLEO GROUP OF TECHNOLOGIES</span>
+          <span className="brand-name">AUSTINEGREATLEO GROUP OF TECHNOLOGIES</span>
         </a>
         <nav className="desktop-nav" aria-label="Main navigation">
           <a href="#about">About</a>
@@ -82,7 +82,7 @@ export default function Home() {
         <div className="intro-layout">
           <h2>A platform for<br /><em>what’s next.</em></h2>
           <div className="intro-text">
-            <p className="lead">Austingreatleo Group of Technologies is an independent technology group bringing ambitious ventures to life across emerging and established fields.</p>
+            <p className="lead">Austinegreatleo Group of Technologies is an independent technology group bringing ambitious ventures to life across emerging and established fields.</p>
             <p>Our work spans creative technology, blockchain and intelligent connectivity. Each venture has its own mission, while sharing one belief: meaningful progress comes from turning difficult ideas into real products.</p>
             <a className="underlined-link" href="#principles">What drives us <span>↗</span></a>
           </div>
@@ -160,7 +160,7 @@ export default function Home() {
           <div className="founder-copy">
             <div className="section-kicker"><span>04</span> / THE FOUNDER</div>
             <h2>Built on a<br /><em>big vision.</em></h2>
-            <p className="lead">Austingreatleo is the founder of Austingreatleo Group of Technologies.</p>
+            <p className="lead">Austingreatleo is the founder of Austinegreatleo Group of Technologies.</p>
             <p>Driven by curiosity and a determination to build, the founder’s focus is on developing technology ventures with global relevance — starting with ideas, then doing the work to turn them into reality.</p>
             <div className="founder-signature">AUSTINGREATLEO <span>FOUNDER</span></div>
           </div>
@@ -179,8 +179,8 @@ export default function Home() {
       </section>
 
       <footer className="site-footer">
-        <a className="brand footer-brand" href="#top"><span className="brand-symbol">AG</span><span className="brand-name">AUSTINGREATLEO GROUP OF TECHNOLOGIES</span></a>
-        <span>© {new Date().getFullYear()} Austingreatleo Group of Technologies</span>
+        <a className="brand footer-brand" href="#top"><span className="brand-symbol">AG</span><span className="brand-name">AUSTINEGREATLEO GROUP OF TECHNOLOGIES</span></a>
+        <span>© {new Date().getFullYear()} Austinegreatleo Group of Technologies</span>
         <a href="#top" className="back-top">BACK TO TOP ↑</a>
       </footer>
     </main>
