@@ -43,7 +43,7 @@ export default function Home() {
       <header className="site-header">
         <a className="brand" href="#top" aria-label="Austingreatleo Group home">
           <span className="brand-symbol">AG</span>
-          <span className="brand-name">AUSTINGREATLEO <small>GROUP OF TECHNOLOGIES</small></span>
+          <span className="brand-name">AUSTINGREATLEO GROUP OF TECHNOLOGIES</span>
         </a>
         <nav className="desktop-nav" aria-label="Main navigation">
           <a href="#about">About</a>
@@ -179,7 +179,7 @@ export default function Home() {
       </section>
 
       <footer className="site-footer">
-        <a className="brand footer-brand" href="#top"><span className="brand-symbol">AG</span><span className="brand-name">AUSTINGREATLEO <small>GROUP OF TECHNOLOGIES</small></span></a>
+        <a className="brand footer-brand" href="#top"><span className="brand-symbol">AG</span><span className="brand-name">AUSTINGREATLEO GROUP OF TECHNOLOGIES</span></a>
         <span>© {new Date().getFullYear()} Austingreatleo Group of Technologies</span>
         <a href="#top" className="back-top">BACK TO TOP ↑</a>
       </footer>
