@@ -129,7 +129,7 @@ export default function Home() {
           <div className="achievement-copy">
             <span className="achievement-index">EXM · CYBER DEFENCE</span>
             <h3>European government technology engagement</h3>
-            <p>The EXM cyber-defence B-2 Spirit concept has been sold to a government technology agency in Europe — a significant milestone in taking the group’s advanced technology concepts to an international government audience.</p>
+            <p>The EXM cyber-defence B-2 Spirit concept was sold to a government technology agency in Europe for €11,000 — a significant milestone in taking the group’s advanced technology concepts to an international government audience.</p>
             <p className="achievement-disclaimer">Further details are not disclosed.</p>
           </div>
         </div>
