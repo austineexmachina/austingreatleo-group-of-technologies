@@ -119,6 +119,22 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="achievement-section section-wrap" id="achievement">
+        <div className="section-kicker"><span>03</span> / A GROUP MILESTONE</div>
+        <div className="achievement-layout">
+          <div>
+            <div className="achievement-label"><span /> DEFENCE TECHNOLOGY</div>
+            <h2>Ideas with<br /><em>real-world reach.</em></h2>
+          </div>
+          <div className="achievement-copy">
+            <span className="achievement-index">EXM · CYBER DEFENCE</span>
+            <h3>European government technology engagement</h3>
+            <p>The EXM cyber-defence B-2 Spirit concept has been sold to a government technology agency in Europe — a significant milestone in taking the group’s advanced technology concepts to an international government audience.</p>
+            <p className="achievement-disclaimer">Further details are not disclosed.</p>
+          </div>
+        </div>
+      </section>
+
       <section className="principles-section section-wrap" id="principles">
         <div className="section-kicker"><span>03</span> / HOW WE THINK</div>
         <div className="principles-heading"><h2>Ambition needs<br /><em>direction.</em></h2><p>Our principles shape the way we explore opportunities, develop technology and build for the long term.</p></div>
@@ -157,8 +173,7 @@ export default function Home() {
           <h2>The future is<br /><em>built together.</em></h2>
           <div className="contact-copy">
             <p>For investment conversations, partnerships, technology collaboration and media enquiries, connect with the group.</p>
-            <a className="contact-email" href="mailto:hello@austingreatleo.com">hello@austingreatleo.com <span>↗</span></a>
-            <span className="contact-note">Replace this placeholder with your confirmed business email before launch.</span>
+            <a className="contact-email" href="mailto:austinechibueze905@gmail.com">austinechibueze905@gmail.com <span>↗</span></a>
           </div>
         </div>
       </section>
