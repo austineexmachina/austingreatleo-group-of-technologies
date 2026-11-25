@@ -7,7 +7,7 @@ const ventures = [
       "Building an AI-powered creative ecosystem for creators, filmmakers and storytellers — from editing and animation to VFX, CGI and production workflows.",
     status: "IN DEVELOPMENT",
     mark: "S",
-    href: "https://sparrowloveedit.com"
+    href: "#contact"
   },
   {
     number: "02",
@@ -17,7 +17,7 @@ const ventures = [
       "Developing an independent blockchain initiative focused on proof-of-stake infrastructure, digital ownership and a foundation for decentralised applications.",
     status: "IN DEVELOPMENT",
     mark: "A",
-    href: "https://anticoin.network"
+    href: "#contact"
   },
   {
     number: "03",
